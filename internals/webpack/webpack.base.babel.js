@@ -12,6 +12,13 @@ module.exports = (options) => ({
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        exclude: [path.join(__dirname, '../', 'node_modules')],
+      },
+    ],
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel',
@@ -88,4 +95,8 @@ module.exports = (options) => ({
   target: 'web', // Make web variables accessible to webpack, e.g. window
   stats: false, // Don't show stats in the console
   progress: true,
+  eslint: {
+    failOnWarning: false,
+    failOnError: true
+  },
 });
